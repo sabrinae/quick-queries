@@ -7,7 +7,7 @@ CREATE TEMP FUNCTION toCurrency(obj FLOAT64)
 WITH table_1 AS (
 SELECT 
   Advertiser, 
-  campaign_name AS Campaign_Name,campaign_type AS Campaign_Type,MIN(start_date) AS Start_Date,MAX(end_date) AS End_Date, 
+  #campaign_name AS Campaign_Name,campaign_type AS Campaign_Type,MIN(start_date) AS Start_Date,MAX(end_date) AS End_Date, 
   SUM(total_GROSS_budget) AS TotalBudget, 
   SUM(total_GROSS_spend) AS TotalSpend, 
   SUM(impressions) AS Impressions, 
@@ -18,11 +18,11 @@ FROM
 WHERE
   Advertiser = 'some client name' AND total_GROSS_spend > 1
 GROUP BY
-  Advertiser, campaign_name, campaign_type, total_GROSS_budget
+  Advertiser #, campaign_name, campaign_type
 )
 SELECT 
   Advertiser,
-  Campaign_Name, Campaign_Type,
+  #Campaign_Name, Campaign_Type,
   toCurrency(TotalBudget) AS Total_Budget,
   toCurrency(TotalSpend) AS Total_Spend,
   Impressions,
